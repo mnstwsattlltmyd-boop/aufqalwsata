@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آفاق الوساطة - طلب تعميد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* [ ... تنسيقات CSS الأساسية ... ] */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            direction: rtl; 
+            font-family: 'Tajawal', sans-serif; 
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6; 
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-start; 
+            align-items: center;
+            padding: 15px 5%;
+            background-color: transparent; 
+            color: white;
+            position: absolute; 
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .menu-icon {
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: auto; 
+            padding: 0 10px; 
+        }
+        .header-image {
+            width: 100%;
+            height: 250px; 
+            background: url('') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .header-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1;
+        }
+        .header-content {
+            z-index: 2;
+            color: white;
+            max-width: 80%;
+        }
+        .header-content h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        .header-content p {
+            font-size: 1em;
+            margin-top: 0;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            max-width: 90%;
+            width: 450px; 
+            margin: -60px auto 30px auto; 
+            padding: 30px 25px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #2b3a90; 
+            font-size: 1.2em;
+            font-weight: 700;
+            text-align: center;
+            margin: 25px 0 25px 0;
+            padding: 5px 0;
+        }
+
+        .input-group {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-between;
+        }
+        .form-field {
+            width: 100%; 
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        input[type="text"],
+input[type="number"],
+input[type="email"], /* 💡 تم إضافة هذا السطر */
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 1em;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease-in-out;
+}
+
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #2b3a90;
+            background-color: #ffffff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(43, 58, 144, 0.2);
+        }
+
+        .placeholder-text::after {
+            content: " *";
+            color: red;
+            font-weight: bold;
+        }
+        
+        .note {
+            color: #2b3a90;
+            font-weight: 700;
+            text-align: center;
+            margin: 30px 0 20px 0;
+            padding: 10px 0;
+            font-size: 1.05em;
+        }
+
+        .terms-section {
+            padding: 15px 0;
+            text-align: right;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .terms-section label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+        }
+        .terms-section input[type="checkbox"] {
+            margin-left: 10px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            accent-color: #0d832d; 
+        }
+        .terms-text {
+            line-height: 1.4;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background-color: #2b3a90; 
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 25px;
+            box-shadow: 0 4px 10px rgba(43, 58, 144, 0.3);
+        }
+        .submit-button:hover {
+            background-color: #1a2569;
+        }
+        .submit-button:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+        }
+
+        /* تنسيق رسالة الحالة العادية للخطأ */
+        .form-status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none; /* إخفاء في البداية */
+        }
+        .form-status.error {
+            background-color: #fbecec;
+            color: #cc0000;
+            border: 1px solid #cc0000;
+        }
+
+
+        .contact-footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 30px;
+        }
+        .contact-footer h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .contact-button {
+            display: inline-block;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            background-color: #0d832d; 
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 10px rgba(13, 131, 45, 0.4);
+        }
+        .contact-button:hover {
+            background-color: #0a6921;
+        }
+        
+        @media (min-width: 400px) {
+            .input-group.two-cols .form-field {
+                width: calc(50% - 10px); 
+            }
+        }
+        @media (max-width: 480px) {
+            .form-container {
+                width: 95%;
+                margin: -60px auto 20px auto;
+                padding: 20px;
+            }
+        }
+
+        /* --- التنسيقات الجديدة لرسالة النجاح --- */
+        .success-message-container {
+            max-width: 90%;
+            width: 450px; 
+            margin: -60px auto 30px auto; 
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        .success-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .success-text {
+            color: #2b3a90; /* لون النص الأزرق كما في الصورة */
+            font-size: 1.5em; /* حجم كبير للرسالة */
+            font-weight: 700;
+            line-height: 1.5;
+            margin: 0;
+            white-space: pre-line;
+        }
+
+        .contact-footer-success {
+            text-align: center;
+            padding: 0px; 
+            margin-top: 30px;
+        }
+        .contact-footer-success h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .contact-footer-success .contact-button {
+            /* تصميم زر الواتساب الخاص بالرسالة المنبثقة */
+            width: 100%; 
+            padding: 18px 20px;
+            border-radius: 10px; /* تغيير شكل الزر ليطابق الصورة */
+            font-size: 1.05em;
+        }
+        /* --------------------------------- */
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <i class="fas fa-bars menu-icon"></i>
+        </div>
+        
+        <div class="header-image">
+            <div class="header-content">
+                <h1>طلب تعميد</h1>
+                <p>دل معاملاتك بسهولة وأمانة مع خدمة التعميد من آفاق الوساطة. حجمك مضمون وآمن.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="form-container" id="mainFormContainer">
+        <form id="submissionForm" action="https://formspree.io/f/xovrjvzk" method="POST">
+            
+            <h2 class="section-title">معلومات مقدم الطلب</h2>
+            
+            <div class="form-field">
+                <input type="text" id="req_name" name="اسم_مقدم_الطلب" placeholder="اسم مقدم طلب *" required>
+            </div>
+            
+            <div class="form-field">
+                <input type="email" id="reply_email" name="_replyto" placeholder="البريد الإلكتروني للرد *" required>
+            </div>
+
+            <div class="form-field">
+                <input type="number" id="whatsapp_num" name="رقم_واتساب_خاص_بك" placeholder="رقم الواتساب الخاص بك *" required>
+            </div>
+
+            <div class="input-group two-cols">
+                <div class="form-field">
+                    <input type="text" id="city" name="اسم_المدينة" placeholder="اسم المدينة *" required>
+                </div>
+                <div class="form-field">
+                    <select id="service_type" name="الخدمة_المطلوبة" required>
+                        <option value="" disabled selected>الخدمة المطلوبة *</option>
+                        <option value="تعميد">تعميد</option>
+                        <option value="إنجاز معاملة">إنجاز معاملة</option>
+                        <option value="وساطة">وساطة</option>
+                    </select>
+                </div>
+            </div>
+
+            <h2 class="section-title">معلومات مقدم الخدمة</h2>
+
+            <div class="input-group two-cols">
+                <div class="form-field">
+                    <input type="text" id="service_amount" name="مبلغ_خدمة_التعميد" placeholder="مبلغ خدمة التعميد *" required>
+                </div>
+                <div class="form-field">
+                    <input type="number" id="service_whatsapp" name="رقم_واتساب_مقدم_الخدمة" placeholder="رقم الواتساب الخاص بمقدم الخدمة *" required>
+                </div>
+            </div>
+
+            <div class="input-group two-cols">
+                <div class="form-field">
+                    <input type="text" id="period" name="فترة_التعميد_بالأيام" placeholder="فترة التعميد بالأيام *" required>
+                </div>
+                <div class="form-field full-width">
+                     <textarea id="transaction_details" name="تفاصيل_المعاملة" rows="1" placeholder="تفاصيل المعاملة المطلوبة *" required></textarea>
+                </div>
+            </div>
+            
+            <p class="note">ملاحظة: سنقوم بالتواصل مع مقدم الخدمة لتأكيد الطلب</p>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+            <div class="terms-section">
+                <label>
+                    <input type="checkbox" id="terms" name="الموافقة_على_الشروط" required>
+                    <span class="terms-text">
+                        شروط وأحكام • موافقتي على شروط الخدمة
+                        <br>
+                        إقرار وتعهد صاحب الطلب أو مقدم الخدمة بتقديم مخالفة الشروط و الأحكام أو الأنظمة و
+                        الطلب دون رجوع لأي طرف
+                    </span>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-button">تقديم طلب الخدمة</button>
+
+            <div id="errorMessage" class="form-status error" style="display: none;"></div>
+
+        </form>
+    </div>
+    
+    <div id="successMessageContainer" class="success-message-container" style="display: none;">
+        <div class="success-card">
+            <p class="success-text">
+                شكراً لثقتك سيتم
+                <br>
+                التواصل معكم بأسرع
+                <br>
+                وقت لإتمام طلبكم
+                <br>
+                إدارة المنصة
+            </p>
+        </div>
+        
+        <div class="contact-footer-success">
+            <h3>تواصل معنا إذا احتجت أي شي</h3>
+            <a href="https://wa.me/966576735113" class="contact-button" target="_blank">
+                اضغط هنا للواتس مباشرة 
+            </a>
+        </div>
+    </div>
+    <div class="contact-footer" id="defaultContactFooter">
+        <h3>تواصل معنا إذا احتجت أي شي</h3>
+        <a href="https://wa.me/966576735113" class="contact-button" target="_blank">
+            <i class="fab fa-whatsapp"></i> للتواصل واتساب
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('submissionForm');
+            const mainFormContainer = document.getElementById('mainFormContainer'); // حاوية النموذج
+            const successContainer = document.getElementById('successMessageContainer');
+            const errorMessage = document.getElementById('errorMessage');
+            const defaultContactFooter = document.getElementById('defaultContactFooter'); // ذيل الصفحة الأصلي
+            const submitButton = document.querySelector('.submit-button');
+            
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); 
+                
+                // إخفاء جميع الرسائل قبل الإرسال
+                successContainer.style.display = 'none';
+                errorMessage.style.display = 'none';
+                
+                submitButton.disabled = true;
+                submitButton.textContent = 'جاري الإرسال...';
+                
+                const data = new FormData(event.target);
+                
+                fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // **حالة النجاح:** إخفاء النموذج وإظهار رسالة النجاح
+                        mainFormContainer.style.display = 'none'; 
+                        defaultContactFooter.style.display = 'none'; 
+                        successContainer.style.display = 'block'; 
+                        form.reset(); 
+                        
+                    } else {
+                        // **حالة الفشل:** عرض رسالة الخطأ
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                errorMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
+                            } else {
+                                errorMessage.textContent = '❌ حدث خطأ غير متوقع أثناء الإرسال.';
+                            }
+                            errorMessage.style.display = 'block'; 
+                            // إعادة تمكين الزر وعرض رسالة الخطأ
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'تقديم طلب الخدمة';
+                        })
+                    }
+                }).catch(error => {
+                    // **حالة فشل الشبكة:**
+                    errorMessage.textContent = '❌ خطأ في الاتصال بالشبكة. يرجى المحاولة لاحقاً.';
+                    errorMessage.style.display = 'block';
+                    // إعادة تمكين الزر وعرض رسالة الخطأ
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'تقديم طلب الخدمة';
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

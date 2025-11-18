@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آفق الوساطة - منصة التعميد الموثوقة</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* تنسيق أساسي للعربية والخطوط */
+        body {
+            direction: rtl; /* اتجاه الصفحة من اليمين لليسار */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: #2b3a90; /* لون أزرق غامق */
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #ccc;
+        }
+
+        /* قسم البطل (Hero) - الصورة الافتراضية */
+        .hero-section {
+            background: url('https://picsum.photos/1200/500?random=1') no-repeat center center/cover; /* يمكنك استبدال الرابط بصورتك */
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 0, 0, 0.65); /* تم التعديل: زيادة العتامة */
+            padding: 30px 60px;
+            color: white;
+            border-radius: 8px;
+        }
+        .hero-section h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        /* الأزرار الرئيسية */
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px; /* لتكون دائرية أكثر */
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        .primary-green {
+            background-color: #4CAF50; /* زر أخضر كالذي في الصورة */
+            color: white;
+            border: 2px solid #4CAF50;
+        }
+        .primary-green:hover {
+            background-color: #45a049;
+        }
+        
+        /* القسم المشترك (للهوامش الداخلية) */
+        section {
+            padding: 80px 5%;
+        }
+
+        /* قسم المميزات (الأيقونات) */
+        .features-section {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        .feature-item {
+            flex-basis: 30%;
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: #e0e7ff; /* خلفية فاتحة للأيقونة */
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-circle i {
+            color: #2b3a90; /* لون الأيقونة */
+            font-size: 30px;
+        }
+        .feature-item h3 {
+            color: #2b3a90;
+        }
+
+
+        /* قسم المحتوى مع الصورة */
+        .content-image-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background-color: #f4f7f6; /* خلفية فاتحة */
+        }
+        .content-text {
+            flex: 1;
+        }
+        .content-image-placeholder {
+            flex: 1;
+            height: 350px;
+            background: url('https://picsum.photos/600/350?random=2') no-repeat center center/cover; /* صورة أفقية */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content-text ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .content-text li::before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-right: 0.5em;
+        }
+
+
+        /* قسم آراء العملاء */
+        .testimonials-section {
+            text-align: center;
+        }
+        .testimonial-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .testimonial-card {
+            width: 30%;
+            min-width: 250px;
+            margin: 15px;
+            padding: 30px;
+            background-color: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: right;
+        }
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            background: url('https://picsum.photos/60?random=3') no-repeat center center/cover;
+            border-radius: 50%;
+            float: right; /* وضع الصورة على اليمين */
+            margin-left: 15px;
+        }
+        .testimonial-card h4 {
+            margin-top: 0;
+            color: #2b3a90;
+        }
+        .testimonial-card p {
+            clear: both; /* لضمان أن النص يبدأ تحت الصورة */
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* قسم الأسئلة الشائعة (FAQ) */
+        .faq-section {
+            background-color: #f4f7f6;
+            text-align: right;
+        }
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .faq-item {
+            max-width: 800px;
+            margin: 0 auto;
+            border-bottom: 1px solid #ddd;
+        }
+        .faq-item details {
+            padding: 15px 0;
+        }
+        .faq-item summary {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 0;
+            list-style: none;
+            position: relative;
+        }
+        .faq-item summary::after {
+            content: "+";
+            position: absolute;
+            left: 0;
+            transition: transform 0.3s;
+        }
+        .faq-item details[open] summary::after {
+            content: "-";
+        }
+        .faq-item p {
+            padding: 10px 0 10px 20px;
+            background-color: #fff;
+            border-right: 3px solid #4CAF50;
+        }
+        
+        /* تنسيق لضمان التجاوب على الشاشات الأصغر */
+        @media (max-width: 768px) {
+            
+            /* التعديلات على قسم البطل (Hero Section) للهواتف */
+            .hero-overlay {
+                padding: 20px 30px; /* تم التعديل: تقليل الحشو */
+            }
+            .hero-section h1 {
+                font-size: 1.8em; /* تم التعديل: تصغير حجم الخط */
+                line-height: 1.4; /* تم التعديل: زيادة تباعد الأسطر */
+            }
+            .hero-section p {
+                font-size: 0.95em; /* تم التعديل: تصغير حجم الخط قليلاً */
+                line-height: 1.8; /* تم التعديل: زيادة تباعد الأسطر */
+                text-align: justify; /* تم التعديل: محاذاة النص */
+                padding: 0 10px; /* تم التعديل: إضافة حشوة جانبية */
+            }
+            /* نهاية التعديلات */
+
+            .features-section, .content-image-section, .testimonial-container {
+                flex-direction: column;
+            }
+            .feature-item, .testimonial-card {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .content-image-placeholder {
+                margin-top: 20px;
+                order: -1; /* لجعل الصورة تظهر قبل النص في الموبايل */
+            }
+            .navbar nav {
+                display: none; /* إخفاء قائمة التنقل على الموبايل لتبسيط العرض */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">آفق الوساطة</div>
+        <nav>
+            <ul>
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#">الخدمة</a></li>
+                <li><a href="#">الرسوم</a></li>
+                <li><a href="#">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <h1>مرحباً بكم في آفق الوساطة منصتكم الموثوقة لضمان معاملات تعميدكم</h1>
+            <p>في آفق الوساطة، نوفر لك خدمات التعميد لحماية أموالك وضمان حقوقك في كل صفقة. نحرص على أن تتم معاملتك بأمان وشفافية تامة، ونشرف على تنفيذ الاتفاقات بين الأطراف. معنا، تكون مطمئناً لأن كل شيء يتم وفق الاتفاق، دون مخاطر أو تأخير. اختر آفق الوساطة لتعاملات مالية سهلة وآمنة.</p>
+            <a href="order.html" class="cta-button primary-green">عمد طلبك الان</a>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="feature-item">
+            <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+            <h3>ضمان وحماية</h3>
+            <p>نحمي أموالك وحقوقك من أي مخاطر أو عمليات احتيال حتى اكتمال الصفقة.</p>
+        </div>
+        <div class="feature-item">
+            <div class="icon-circle"><i class="fas fa-handshake"></i></div>
+            <h3>شفافية وثقة</h3>
+            <p>إشراف كامل وواضح على كل خطوة في عملية البيع أو الشراء بين الأطراف.</p>
+        </div>
+        <div class="feature-item">
+            <div class="icon-circle"><i class="fas fa-file-contract"></i></div>
+            <h3>تنفيذ دقيق</h3>
+            <p>نلتزم بتفاصيل الاتفاق الموثق حرفياً، لضمان رضا جميع الأطراف.</p>
+        </div>
+    </section>
+
+    <section class="content-image-section">
+        <div class="content-text">
+            <h2>لماذا تختار آفق الوساطة؟</h2>
+            <p>في سوق التعاملات الرقمية، الثقة هي عملتنا. نحن نقدم الحل الجذري للقضاء على مخاطر النصب والتأخير في تسليم المستحقات. اخترنا لنكون الطرف الثالث الموثوق به بينك وبين البائع أو المشتري.</p>
+            <ul>
+                <li>تحرير آمن للأموال عند إتمام الاتفاق.</li>
+                <li>توثيق رسمي لكافة بنود العقد.</li>
+                <li>حل النزاعات والتحكيم بين الأطراف.</li>
+            </ul>
+            <a href="#faq" class="cta-button primary-green">شاهد رسوم الخدمة</a>
+        </div>
+        <div class="content-image-placeholder">
+            </div>
+    </section>
+    
+    <section class="testimonials-section">
+        <h2>ماذا يقول عملاؤنا؟</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-card">
+                <div class="profile-pic"></div>
+                <h4>سارة محمد</h4>
+                <p>"أتممت عملية شراء خدمة رقمية بمبلغ كبير بفضل آفق الوساطة. لأول مرة أشعر بالاطمئنان الكامل في تعاملي."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="profile-pic"></div>
+                <h4>أحمد علي</h4>
+                <p>"تم تسليم دفعات العمل إليّ كبائع بشكل سلس وفي الموعد فور تأكيد المشتري. منصة احترافية وموثوقة جداً."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <h2>الأسئلة الشائعة (FAQ)</h2>
+        <div class="faq-item">
+            <details>
+                <summary>ما هي عملية التعميد (الوساطة)؟</summary>
+                <p>هي خدمة تحفظ أموالك لدينا كطرف ثالث موثوق به، ولا يتم تحريرها للبائع إلا بعد تأكدك من استلام الخدمة أو المنتج حسب الاتفاق المبرم. نحن نضمن وصول حقك قبل وصول المال للطرف الآخر.</p>
+            </details>
+        </div>
+        <div class="faq-item">
+            <details>
+                <summary>ما هي الرسوم التي تتقاضونها على خدمة التعميد؟</summary>
+                <p>نأخذ نسبة ضئيلة وموضحة مسبقاً من قيمة الصفقة (تتراوح عادةً بين 1% إلى 3% حسب المبلغ والتعقيد)، ويتم الاتفاق عليها وتثبيتها في العقد قبل بدء العملية. لا توجد رسوم خفية.</p>
+            </details>
+        </div>
+        <div class="faq-item">
+            <details>
+                <summary>ماذا يحدث في حال إلغاء أو فشل الصفقة؟</summary>
+                <p>إذا تم إلغاء الصفقة لسبب مشروع أو لم يتم الاتفاق بين الأطراف، يتم إعادة المبلغ المدفوع إليك كاملاً (باستثناء رسوم تحويل البنوك إن وجدت). أمان أموالك هو أولويتنا.</p>
+            </details>
+        </div>
+    </section>
+    
+    <footer id="contact" style="text-align:center; padding: 40px; background-color: #2b3a90; color: white;">
+        <h3>تواصل معنا</h3>
+        <p>جاهز لتبدأ صفقة آمنة؟</p>
+        <p>البريد الإلكتروني: info@afaq-wasata.com | الهاتف: +966 50 123 4567</p>
+    </footer>
+
+</body>
+</html>
