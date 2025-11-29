@@ -35,6 +35,21 @@
             top: 0; 
             z-index: 1000; 
         } 
+
+        /* تنسيق الشعار وتضمين الصورة */
+        .logo {
+            display: flex; /* لعرض الشعار والنص جنباً إلى جنب */
+            align-items: center;
+            font-size: 1.5em; /* حجم خط النص بجانب الشعار */
+            font-weight: bold;
+        }
+
+        .logo img {
+            height: 40px; /* تحديد ارتفاع الصورة لـ 40 بكسل */
+            margin-left: 10px; /* مسافة بين الصورة والنص */
+            vertical-align: middle; /* محاذاة عمودية */
+            border-radius: 4px; /* إضافة حواف مدورة خفيفة */
+        }
         
         .navbar nav ul {
             list-style: none;
@@ -252,6 +267,10 @@
                 font-size: 1.2em;
             }
 
+            .logo img {
+                height: 30px; /* تقليل حجم الشعار في وضع الهاتف */
+            }
+
             /* قسم الأبطال */
             .hero-overlay { 
                 padding: 20px 20px; 
@@ -293,7 +312,10 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="logo">منصة الوساطة</div>
+        <div class="logo">
+            <img src="mnsat.png" alt="شعار منصة الوساطة">
+            منصة الوساطة
+        </div>
         <nav>
             <ul>
                 <li><a href="#">الرئيسية</a></li>
