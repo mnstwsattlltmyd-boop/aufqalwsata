@@ -10,7 +10,7 @@
     <style>
         /* [ ... تنسيقات CSS الأساسية ... ] */
         * {
-            box-sizing: border-box;
+            box-sizing: border-content;
         }
         body {
             direction: rtl; 
@@ -118,7 +118,6 @@
         
         input[type="text"],
         input[type="number"],
-        input[type="email"], /* 💡 تم إضافة هذا السطر */
         select,
         textarea {
             width: 100%;
@@ -329,10 +328,6 @@
                 <input type="text" id="req_name" name="اسم_مقدم_الطلب" placeholder="اسم مقدم طلب *" required>
             </div>
             
-            <div class="form-field">
-                <input type="email" id="reply_email" name="_replyto" placeholder="البريد الإلكتروني للرد *" required>
-            </div>
-
             <div class="form-field">
                 <input type="number" id="whatsapp_num" name="رقم_واتساب_خاص_بك" placeholder="رقم الواتساب الخاص بك *" required>
             </div>
