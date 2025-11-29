@@ -78,6 +78,14 @@
             opacity: 0.9;
         }
 
+        /* تنسيق الصورة المضافة في الهيدر */
+        .header-content .logo-img {
+            max-width: 100px; /* يمكنك تعديل هذا الحجم حسب الحاجة */
+            height: auto;
+            margin-top: 15px; /* مسافة بين النص والصورة */
+            border-radius: 8px; /* لإضافة حواف مدورة إذا أردت */
+        }
+
         .form-container {
             max-width: 90%;
             width: 450px; 
@@ -109,22 +117,21 @@
         }
         
         input[type="text"],
-input[type="number"],
-input[type="email"], /* 💡 تم إضافة هذا السطر */
-select,
-textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: none;
-    font-size: 1em;
-    color: #333;
-    background-color: #f9f9f9;
-    transition: all 0.2s ease-in-out;
-}
-
+        input[type="number"],
+        input[type="email"], /* 💡 تم إضافة هذا السطر */
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: none;
+            font-size: 1em;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: all 0.2s ease-in-out;
         }
+
         input:focus, select:focus, textarea:focus {
             border-color: #2b3a90;
             background-color: #ffffff;
@@ -308,12 +315,13 @@ textarea {
             <div class="header-content">
                 <h1>طلب تعميد</h1>
                 <p>دل معاملاتك بسهولة وأمانة مع خدمة التعميد من آفاق الوساطة. حجمك مضمون وآمن.</p>
+                <img src="mnsat.png" alt="شعار منصة الوساطة" class="logo-img">
             </div>
         </div>
     </header>
 
-    <div class="form-container" id="mainFormContainer">
-        <form id="submissionForm" action="https://formspree.io/f/mwpybgqj" method="POST">
+    <div class="form-container" id="mainformcontainer">
+        <form id="submissionform" action="https://formspree.io/f/mwpybgqj" method="post">
             
             <h2 class="section-title">معلومات مقدم الطلب</h2>
             
@@ -381,12 +389,12 @@ textarea {
             
             <button type="submit" class="submit-button">تقديم طلب الخدمة</button>
 
-            <div id="errorMessage" class="form-status error" style="display: none;"></div>
+            <div id="errormessage" class="form-status error" style="display: none;"></div>
 
         </form>
     </div>
     
-    <div id="successMessageContainer" class="success-message-container" style="display: none;">
+    <div id="successmessagecontainer" class="success-message-container" style="display: none;">
         <div class="success-card">
             <p class="success-text">
                 شكراً لثقتك سيتم
@@ -406,7 +414,7 @@ textarea {
             </a>
         </div>
     </div>
-    <div class="contact-footer" id="defaultContactFooter">
+    <div class="contact-footer" id="defaultcontactfooter">
         <h3>تواصل معنا إذا احتجت أي شي</h3>
         <a href="https://wa.me/966593192571" class="contact-button" target="_blank">
             <i class="fab fa-whatsapp"></i> للتواصل واتساب
@@ -415,22 +423,22 @@ textarea {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('submissionForm');
-            const mainFormContainer = document.getElementById('mainFormContainer'); // حاوية النموذج
-            const successContainer = document.getElementById('successMessageContainer');
-            const errorMessage = document.getElementById('errorMessage');
-            const defaultContactFooter = document.getElementById('defaultContactFooter'); // ذيل الصفحة الأصلي
-            const submitButton = document.querySelector('.submit-button');
+            const form = document.getElementById('submissionform');
+            const mainformcontainer = document.getElementById('mainformcontainer'); // حاوية النموذج
+            const successcontainer = document.getElementById('successmessagecontainer');
+            const errormessage = document.getElementById('errormessage');
+            const defaultcontactfooter = document.getElementById('defaultcontactfooter'); // ذيل الصفحة الأصلي
+            const submitbutton = document.querySelector('.submit-button');
             
             form.addEventListener("submit", function(event) {
                 event.preventDefault(); 
                 
                 // إخفاء جميع الرسائل قبل الإرسال
-                successContainer.style.display = 'none';
-                errorMessage.style.display = 'none';
+                successcontainer.style.display = 'none';
+                errormessage.style.display = 'none';
                 
-                submitButton.disabled = true;
-                submitButton.textContent = 'جاري الإرسال...';
+                submitbutton.disabled = true;
+                submitbutton.textContent = 'جاري الإرسال...';
                 
                 const data = new FormData(event.target);
                 
@@ -443,32 +451,32 @@ textarea {
                 }).then(response => {
                     if (response.ok) {
                         // **حالة النجاح:** إخفاء النموذج وإظهار رسالة النجاح
-                        mainFormContainer.style.display = 'none'; 
-                        defaultContactFooter.style.display = 'none'; 
-                        successContainer.style.display = 'block'; 
+                        mainformcontainer.style.display = 'none'; 
+                        defaultcontactfooter.style.display = 'none'; 
+                        successcontainer.style.display = 'block'; 
                         form.reset(); 
                         
                     } else {
                         // **حالة الفشل:** عرض رسالة الخطأ
                         response.json().then(data => {
-                            if (Object.hasOwn(data, 'errors')) {
-                                errorMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
+                            if (Object.hasOwnProperty.call(data, 'errors')) {
+                                errormessage.textContent = data["errors"].map(error => error["message"]).join(", ");
                             } else {
-                                errorMessage.textContent = '❌ حدث خطأ غير متوقع أثناء الإرسال.';
+                                errormessage.textContent = '❌ حدث خطأ غير متوقع أثناء الإرسال.';
                             }
-                            errorMessage.style.display = 'block'; 
+                            errormessage.style.display = 'block'; 
                             // إعادة تمكين الزر وعرض رسالة الخطأ
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'تقديم طلب الخدمة';
+                            submitbutton.disabled = false;
+                            submitbutton.textContent = 'تقديم طلب الخدمة';
                         })
                     }
                 }).catch(error => {
                     // **حالة فشل الشبكة:**
-                    errorMessage.textContent = '❌ خطأ في الاتصال بالشبكة. يرجى المحاولة لاحقاً.';
-                    errorMessage.style.display = 'block';
+                    errormessage.textContent = '❌ خطأ في الاتصال بالشبكة. يرجى المحاولة لاحقاً.';
+                    errormessage.style.display = 'block';
                     // إعادة تمكين الزر وعرض رسالة الخطأ
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'تقديم طلب الخدمة';
+                    submitbutton.disabled = false;
+                    submitbutton.textContent = 'تقديم طلب الخدمة';
                 });
             });
         });
